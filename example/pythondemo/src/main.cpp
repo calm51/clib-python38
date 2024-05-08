@@ -15,8 +15,12 @@
 #include <qtandroidcls/qtandroidcls.h>
 #endif
 
-#include <QNetworkAccessManager>
 #include <qmessagebox.h>
+
+#pragma push_macro("slots")
+#undef slots
+#include "Python.h"
+#pragma pop_macro("slots")
 
 int main(int argc, char *argv[]){
     QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
@@ -44,17 +48,16 @@ int main(int argc, char *argv[]){
 #endif
     w.show();
 
-    QNetworkAccessManager networkManager;
-    //    if(!QSslSocket::supportsSsl()){
-    QStringList sl;
-    sl << "是否支持SSL:  " << (QSslSocket::supportsSsl()?"支持":"不支持")
-       << "\nLib Version Number: " << QString::number(QSslSocket::sslLibraryVersionNumber())
-       << "\nLib Version String: " << QSslSocket::sslLibraryVersionString()
-       << "\nLib Build Version Number: " << QString::number(QSslSocket::sslLibraryBuildVersionNumber())
-       << "\nLib Build Version String: " << QSslSocket::sslLibraryBuildVersionString()
-       <<"\n"<<networkManager.supportedSchemes().join(", ");
-    QMessageBox::information(&w, " ",sl.join(""));
-    //    }
+    if (QString::fromWCharArray(Py_GetProgramName()).count()==0){ Py_SetProgramName(QString("python3").toStdWString().c_str()); }
+
+    Py_Initialize();
+
+    const char* code = R"(
+print("Hi, I am python3.8.")
+  )";
+    PyRun_SimpleString(code);
+
+    Py_Finalize();
 
     return a.exec();
 
