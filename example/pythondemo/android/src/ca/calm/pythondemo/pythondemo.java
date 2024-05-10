@@ -1,4 +1,4 @@
-package ca.calm.openssldemo;
+package ca.calm.pythondemo;
 
 
 import android.app.Activity;
@@ -58,14 +58,14 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 
 
-public class openssldemo extends org.qtproject.qt5.android.bindings.QtActivity implements TextToSpeech.OnInitListener{
-    static final private String TAG = "openssldemo";
+public class pythondemo extends org.qtproject.qt5.android.bindings.QtActivity implements TextToSpeech.OnInitListener{
+    static final private String TAG = "pythondemo";
     private Context m_context = null;
     private static Handler m_handler = null;
-    private static openssldemo m_instance;
+    private static pythondemo m_instance;
     private static NotificationManager m_notificationManager = null;
     private static Notification.Builder m_builder = null;
-    static public openssldemo instance() { return m_instance; }
+    static public pythondemo instance() { return m_instance; }
     public void setContext(Context context) {context.toString();}
 
     public native void statusbarHeightChanged(int i);
@@ -73,7 +73,7 @@ public class openssldemo extends org.qtproject.qt5.android.bindings.QtActivity i
 
     private static TextToSpeech m_tts = null;
 
-    public openssldemo(){
+    public pythondemo(){
         //System.out.println("");
         Log.d(TAG, "I'm coming!");
         m_instance = this;
